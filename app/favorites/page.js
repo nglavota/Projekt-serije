@@ -63,7 +63,6 @@ export default function FavoritesPage() {
               width={200}
               height={300}
               className="w-full aspect-[2/3] object-cover rounded"
-              priority
             />
 
             {/* Naziv serije */}
