@@ -14,7 +14,7 @@ async function fetchCast(showId) {
 
   const data = await response.json();
 
-  // Ako ne dobijemo nijednog glumca (npr. nepostojeći show ID),  not-found stranicu
+  // Ako ne dobijemo nijednog glumca (npr. nepostojeći show ID),  not-found stranica
   if (!data || data.length === 0) {
     notFound();
   }

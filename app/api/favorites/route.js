@@ -16,7 +16,7 @@ export async function POST(request) {
     return Response.json({ error: "Nedostaju podaci." }, { status: 400 });
   }
 
-  // Provjera je li stavka već dodana u favorite
+  // Provjera je li serija već dodana u favorite
   const alreadyExists = favorites.some(fav => fav.id === id);
   if (!alreadyExists) {
     favorites.push({ id, title, poster_path });
@@ -26,7 +26,7 @@ export async function POST(request) {
   return Response.json({ ok: true, favorites });
 }
 
-// DELETE metoda – briše stavku iz favorita na temelju ID-a
+// DELETE metoda – briše seriju iz favorita na temelju ID-a
 export async function DELETE(request) {
   const body = await request.json(); 
   const { id } = body;

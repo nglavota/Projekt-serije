@@ -1,8 +1,8 @@
 'use client';
 
- //Početna stranica moje aplikacije.
+ //Ovo je početna stranica moje aplikacije za TV serije.
  //Prikazuje listu popularnih serija dohvaćenih s TVmaze API-ja po kriteriju da su to najnovije serije, uz mogućnost 
- //pretrage, filtriranje po žanrovima i dodatno učitavanje klikom na gumb Učitaj još.
+ //pretrage, filtriranja po žanrovima i dodatnog učitavanja serija klikom na gumb Učitaj još.
  
 
 import { useState, useEffect } from 'react';
@@ -10,7 +10,8 @@ import ShowSearch from './components/ShowSearch';
 import GenreFilter from './components/GenreFilter';
 import ShowPreview from './components/ShowPreview';
 
-const itemsLoad = 12; // Početni broj prikazanih serija i broj za učitavanje dodatnih
+const itemsLoad = 12; // Početni broj prikazanih serija i ujedno broj za učitavanje dodatnih
+
 
 export default function HomePage() {
   // Svi dohvaćeni podaci
@@ -46,7 +47,7 @@ export default function HomePage() {
       setLoading(true);
       try {
         const res = await fetch(`https://api.tvmaze.com/shows?page=${apiPage}`, {
-          cache: 'force-cache', // Koristimo cache jer se podaci ne mijenjaju često
+          cache: 'force-cache', // Koristimo force-cache jer se podaci ne mijenjaju često pa tako ubrzavamo učitavanje
         });
 
         if (!res.ok) throw new Error('Pogreška prilikom dohvaćanja podataka!');

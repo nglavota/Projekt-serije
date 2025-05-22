@@ -38,7 +38,7 @@ export async function generateMetadata({ params }) {
 
 // Serverska funkcija koja dohvaća podatke o seriji iz vanjskog API-ja (TVmaze)
 // Ako API vrati grešku (npr. ID ne postoji), poziva se notFound() iz Next.js navigacije
-// Ovo automatski prikazuje moju app/not-found.js stranicu 
+// To automatski prikazuje moju app/not-found.js stranicu 
 
 async function fetchShowDetails(id) {
   const response = await fetch(`https://api.tvmaze.com/shows/${id}`);
@@ -49,7 +49,7 @@ async function fetchShowDetails(id) {
   return show;
 }
 
-// Komponenta stranice s detaljima o seriji.
+// Komponenta stranice s detaljima o seriji
 export default async function ShowDetailPage({ params }) {
   const { id } = await params;
 

@@ -14,7 +14,7 @@ export default function FavoritesPage() {
   const [favorites, setFavorites] = useState([]);
 
   // Nakon učitavanja komponente dohvaćamo favorite iz lokalnog API-ja
-  // Koristimo useEffect da se fetch pozove samo jednom prilikom inicijalnog rendera
+  // Koristimo useEffect da se fetch pozove samo jednom prilikom inicijalnog rendera(dependency array prazan)
   useEffect(() => {
     fetch("/api/favorites")
       .then(res => res.json())

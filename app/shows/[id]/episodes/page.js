@@ -1,5 +1,5 @@
-// Stranica koja prikazuje sve epizode određene serije (dohvaćene putem njenog ID-a)
-// Epizode se dohvaćaju serverski pomoću async funkcije 
+// Stranica koja prikazuje sve epizode određene serije (dohvaćene putem njenog ID-a).
+// Epizode se dohvaćaju serverski pomoću async funkcije.
 
 import Link from 'next/link';
 import Image from 'next/image';
