@@ -1,7 +1,11 @@
+// Stranica za prikaz detalja pojedine epizode TV serije na temelju ID-a epizode.
+// Podaci se dohvaćaju sa serverske strane pomoću TVmaze API-ja, uz obradu grešaka i metapodatke za SEO.
+
 import Image from 'next/image';
 import { notFound } from 'next/navigation';  
 
-
+// Serverska funkcija koja generira SEO metapodatke za pojedinu epizodu
+// Ako fetch prema API-ju ne uspije, vraća se fallback metadata s porukom o grešci
 export async function generateMetadata({ params }) {
   const { episodeId } = await params;
 
@@ -21,16 +25,11 @@ export async function generateMetadata({ params }) {
     description: `Sezona ${episode.season}, epizoda ${episode.number}. Trajanje: ${episode.runtime} minuta.`,
     openGraph: {
       images: [{ url: image, width: 800, height: 450 }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      images: [image],
-    },
+    }
   };
 }
 
-
-// Dohvaćanje detalja epizode prema id-u iz TVmaze API-ja
+// Funkcija za dohvaćanje podataka o epizodi iz TVmaze API-ja
 async function fetchEpisodeDetails(episodeId) {
   const response = await fetch(`https://api.tvmaze.com/episodes/${episodeId}`);
 
@@ -40,17 +39,14 @@ async function fetchEpisodeDetails(episodeId) {
   return await response.json();
 }
 
-
 export default async function EpisodeDetailPage({ params }) {
   const { episodeId } = await params;
 
   // Dohvaćamo podatke o epizodi
   const episode = await fetchEpisodeDetails(episodeId);
 
-  // Ako epizoda nije pronađena – prikazujemo 404 stranicu
   if (!episode) return notFound();
 
-  // Ako slika ne postoji, koristimo zadanu sliku
   const imageUrl = episode.image?.original || "/default-image.jpg";  
 
   return (
@@ -73,7 +69,7 @@ export default async function EpisodeDetailPage({ params }) {
           </div>
         </div>
 
-        {/* Opis epizode – koristi se HTML iz API-ja pa ga treba koristiti dangerouslySetInnerHTML za prikazati  ga*/}
+        {/* Opis epizode – koristi se HTML iz API-ja pa je potrebno koristiti dangerouslySetInnerHTML */}
         <div
           className="text-white mb-4"
           dangerouslySetInnerHTML={{ __html: episode.summary || "Opis nije dostupan" }}

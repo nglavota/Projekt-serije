@@ -3,7 +3,9 @@
 import Link from "next/link";
 import BackButton from "./BackButton";
 
+// Navigacijska traka koja se koristi unutar stranica pojedine serije
 export default function ShowNav({ id }) {
+  // Popis stavki koje se prikazuju u izborniku
   const menuItems = [
     { label: "🏠 Početna", href: "/" },
     { label: "📺 Epizode", href: `/shows/${id}/episodes` },
@@ -15,10 +17,8 @@ export default function ShowNav({ id }) {
     <header className="w-full bg-gradient-to-r from-purple-800 to-purple-600 text-white shadow-md">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 gap-4">
         
-        {/* Naslov */}
         <h2 className="text-2xl font-bold tracking-wide">🎬 Izbornik</h2>
 
-        {/* Navigacija */}
         <nav className="flex flex-wrap gap-4 justify-center sm:justify-start">
           {menuItems.map((item) => (
             <Link
@@ -31,7 +31,7 @@ export default function ShowNav({ id }) {
           ))}
         </nav>
 
-        {/* Gumb za povratak */}
+        {/* Gumb za povratak na prethodnu stranicu */}
         <div className="flex justify-center sm:justify-end">
           <BackButton />
         </div>

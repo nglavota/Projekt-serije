@@ -1,3 +1,5 @@
+//Globalna loading komponenta koja se prikazuje dok se stranica učitava.
+
 export default function Loading() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center from-indigo-700 via-purple-600 to-blue-600 text-white">

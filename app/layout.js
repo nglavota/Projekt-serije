@@ -20,11 +20,7 @@ export const metadata = {
   icons: {
     icon: "/favicon.ico",
   },
-  authors: [{ name: "Nikolina Glavota", url: "https://juniordev.example" }],
-  twitter: {
-    card: "summary_large_image",
-    site: "@JuniorDev",
-  },
+  authors: [{ name: "Nikolina Glavota", url: "https://github.com/nglavota/Projekt-serije" }],
 };
 
 export default function RootLayout({ children }) {

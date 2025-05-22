@@ -1,8 +1,10 @@
 import Link from "next/link";
 
+ // Prikazuje 404 stranicu kada korisnik dođe na nepostojeću rutu.
+
 export default function notFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-900 to-black">
       <div className="bg-white/10 backdrop-blur-md p-10 rounded-2xl shadow-2xl text-center max-w-md w-full transform transition duration-300 hover:scale-[1.02]">
         <h1 className="text-6xl font-extrabold text-white mb-2 tracking-tight">404</h1>
         <h2 className="text-3xl font-semibold text-white mb-4">Stranica nije pronađena</h2>

@@ -1,38 +1,60 @@
-'use client'; 
+'use client';
+
+ //Početna stranica moje aplikacije.
+ //Prikazuje listu popularnih serija dohvaćenih s TVmaze API-ja po kriteriju da su to najnovije serije, uz mogućnost 
+ //pretrage, filtriranje po žanrovima i dodatno učitavanje klikom na gumb Učitaj još.
+ 
 
 import { useState, useEffect } from 'react';
 import ShowSearch from './components/ShowSearch';
 import GenreFilter from './components/GenreFilter';
 import ShowPreview from './components/ShowPreview';
 
-const itemsLoad = 12; // Broj serija koji imamo inicijalno te koji dodajemo kasnije pri svakom kliku na gumb "Učitaj još"
+const itemsLoad = 12; // Početni broj prikazanih serija i broj za učitavanje dodatnih
 
 export default function HomePage() {
-  const [allShows, setAllShows] = useState([]);  // Sve serije dohvaćene s API-ja
-  const [visibleShows, setVisibleShows] = useState([]); // Trenutno prikazane serije
-  const [searchQuery, setSearchQuery] = useState(''); // Upit za pretragu
-  const [selectedGenres, setSelectedGenres] = useState([]); // Odabrani žanrovi
-  const [filteredShows, setFilteredShows] = useState([]); // Rezultat filtriranja (pretraga + žanrovi)
-  const [loading, setLoading] = useState(false); // Status učitavanja
-  const [error, setError] = useState(null);  // Poruka o greški ako fetch ne uspije
-  const [apiPage, setApiPage] = useState(0);  // Broj trenutne stranice s API-ja
-  const [loadedCount, setLoadedCount] = useState(0); // Broj trenutno prikazanih serija
+  // Svi dohvaćeni podaci
+  const [allShows, setAllShows] = useState([]);
 
-  // useEffect koji dohvaća podatke s vanjskog API-ja (TVmaze)
+  // Serije koje su trenutno prikazane korisniku
+  const [visibleShows, setVisibleShows] = useState([]);
+
+  // Tekstualni upit za pretragu
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Odabrani žanrovi za filtriranje
+  const [selectedGenres, setSelectedGenres] = useState([]);
+
+  // Serije filtrirane po pretrazi i žanru
+  const [filteredShows, setFilteredShows] = useState([]);
+
+  // Status učitavanja API-ja
+  const [loading, setLoading] = useState(false);
+
+  // Poruka o grešci pri dohvaćanju podataka
+  const [error, setError] = useState(null);
+
+  // Broj trenutno dohvaćene stranice s API-ja 
+  const [apiPage, setApiPage] = useState(0);
+
+  // Broj trenutno prikazanih 
+  const [loadedCount, setLoadedCount] = useState(0);
+
+  // Dohvaćanje podataka iz TVmaze API-ja
   useEffect(() => {
     async function fetchShows() {
       setLoading(true);
       try {
         const res = await fetch(`https://api.tvmaze.com/shows?page=${apiPage}`, {
-          cache: 'force-cache',
+          cache: 'force-cache', // Koristimo cache jer se podaci ne mijenjaju često
         });
 
         if (!res.ok) throw new Error('Pogreška prilikom dohvaćanja podataka!');
 
         const data = await res.json();
-        if (data.length === 0) return; // Ako nema više serija zasustavljamo se
+        if (data.length === 0) return; // Ako nema više serija, prekidamo
 
-        // Sprječavamo duplikate provjerom po id-u
+        // Sprječavamo duplikate pomoću ID-a
         setAllShows(prev => {
           const existingIds = new Set(prev.map(show => show.id));
           const uniqueNewShows = data.filter(show => !existingIds.has(show.id));
@@ -45,54 +67,56 @@ export default function HomePage() {
       }
     }
 
-    fetchShows(); 
-  }, [apiPage]); 
+    fetchShows();
+  }, [apiPage]); // Svaka promjena stranice pokreće novo dohvaćanje
 
-  // Filtriranje serija na temelju pretrage i žanrova
+  // Filtriranje prema pretrazi i odabranim žanrovima
   useEffect(() => {
     let filtered = [...allShows];
 
-    // Sortiranje po datumu premijere (da dobijemo serije po kriteriju koje su najnovije)
+    // Sortiranje: serije s novijim datumom premijere dolaze prve
     filtered.sort((a, b) => new Date(b.premiered) - new Date(a.premiered));
 
-    // Ako korisnik unese bar 2 slova, filtriramo po imenu
+    // Pretraga: ignorira se ako su manje od 2 slova unesena
     if (searchQuery.length >= 2) {
       filtered = filtered.filter(show =>
         show.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
-    // Ako su odabrani žanrovi, filtriramo serije koje ih sadrže
+    // Filtriranje: serija mora sadržavati sve odabrane žanrove 
     if (selectedGenres.length > 0) {
       filtered = filtered.filter(show =>
         selectedGenres.every(genre => show.genres.includes(genre))
       );
     }
 
-    setFilteredShows(filtered); // Ažuriramo filtrirani popis
-    setLoadedCount(itemsLoad); // Resetiramo broj prikazanih
-    setVisibleShows(filtered.slice(0, itemsLoad)); 
-  }, [searchQuery, selectedGenres, allShows]); 
+    // Ažuriramo prikaz i resetiramo brojač prikazanih
+    setFilteredShows(filtered);
+    setLoadedCount(itemsLoad);
+    setVisibleShows(filtered.slice(0, itemsLoad));
+  }, [searchQuery, selectedGenres, allShows]);
 
-  // Funkcija koja učitava još serija
+  // Funkcija za učitavanje dodatnih serija 
   const loadMore = () => {
     const nextCount = loadedCount + itemsLoad;
 
-    // Ako trebamo više serija nego što ih imamo, dohvaćamo novu stranicu s API-ja
+    // Ako nemamo dovoljno podataka, dohvaćamo novu stranicu
     if (nextCount > filteredShows.length && allShows.length < 10000) {
       setApiPage(prev => prev + 1);
     }
 
-    setVisibleShows(filteredShows.slice(0, nextCount)); // Ažuriramo prikazane
-    setLoadedCount(nextCount); // Ažuriramo broj prikazanih
+    // Ažuriramo prikaz
+    setVisibleShows(filteredShows.slice(0, nextCount));
+    setLoadedCount(nextCount);
   };
 
   return (
     <>
-      {/* Poruka o grešci ako nešto ne uspije */}
+      {/* Prikaz greške ako dohvaćanje nije uspjelo */}
       {error && <p className="text-red-400 text-center mb-4">{error}</p>}
 
-      {/* Komponente za pretragu i filtriranje žanrova*/}
+      {/* Komponente za pretragu i filtriranje */}
       <ShowSearch query={searchQuery} onQueryChange={setSearchQuery} />
       <GenreFilter selectedGenres={selectedGenres} onChange={setSelectedGenres} />
 
@@ -105,15 +129,15 @@ export default function HomePage() {
         ) : (
           visibleShows.map((show, index) => (
             <ShowPreview
-              key={`${show.id}-${index}`} 
+              key={`${show.id}-${index}`}
               show={show}
-              priority={index === 0} // Prva slika dobiva priority
+              priority={index === 0} // Prva serija dobiva priority za bolji SEO/LCP
             />
           ))
         )}
       </div>
 
-      {/* Gumb za učitavanje više serija */}
+      {/* Gumb za dodatno učitavanje serija */}
       {visibleShows.length < filteredShows.length && (
         <div className="flex justify-center mb-10">
           <button
