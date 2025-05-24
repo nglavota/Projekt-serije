@@ -2,7 +2,7 @@
 
 ## Opis projekta
 
-Moja aplikacija za istraživanje TV serija je Next.js projekt koji koristi [TVmaze API](https://www.tvmaze.com/api) za prikazivanje informacija o najnovijim TV serijama uključujući detalje o svakoj pojedinačnoj seriji, prikaz i detalje njenih epizoda te pregled i pojedinosti o glumcima. Korisnici putem ove aplikacije mogu pregledavati serije, pretraživati ih po nazivu te filtrirati rezultate po žanrovima. Svaka serija ima svoju zasebnu stranicu s detaljnim informacijama koje obuhvaćaju opis, žanrove, prosječnu ocjenu te se putem izbornika može pristupiti listi epizoda i glumačkoj postavi.
+Moja aplikacija za istraživanje TV serija je Next.js projekt koji koristi [TVmaze API](https://www.tvmaze.com/api) za prikazivanje informacija o najnovijim TV serijama uključujući detalje o svakoj pojedinačnoj seriji, prikaz i detalje njenih epizoda, pregled produkcijske ekipe te pregled i pojedinosti o glumcima. Korisnici putem ove aplikacije mogu pregledavati serije, pretraživati ih po nazivu te filtrirati rezultate po žanrovima. Svaka serija ima svoju zasebnu stranicu s detaljnim informacijama koje obuhvaćaju opis, žanrove, prosječnu ocjenu te se putem izbornika može pristupiti listi epizoda i glumačkoj postavi.
 
 Aplikacija korisnicima omogućuje i upravljanje listom omiljenih serija (favorita). Dodavanje, dohvaćanje i brisanje favorita se odvija kroz vlastiti API, a podatci se pohranjuju u memoriji servera tijekom trajanja sesije. To znači da favoriti nisu trajno spremljeni, odnosno brišu se nakon restart-a, ali planirana je nadogradnja koja će omogućiti trajnu pohranu.
 
