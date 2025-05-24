@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Projekt - 📺 Istraživanje TV serija
 
-## Getting Started
+## Opis projekta
 
-First, run the development server:
+Moja aplikacija za istraživanje TV serija je Next.js projekt koji koristi [TVmaze API](https://www.tvmaze.com/api) za prikazivanje informacija o najnovijim TV serijama uključujući detalje o svakoj pojedinačnoj seriji, prikaz i detalje njenih epizoda te pregled i pojedinosti o glumcima. Korisnici putem ove aplikacije mogu pregledavati serije, pretraživati ih po nazivu te filtrirati rezultate po žanrovima. Svaka serija ima svoju zasebnu stranicu s detaljnim informacijama koje obuhvaćaju opis, žanrove, prosječnu ocjenu te se putem izbornika može pristupiti listi epizoda i glumačkoj postavi.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Aplikacija korisnicima omogućuje i upravljanje listom omiljenih serija (favorita). Dodavanje, dohvaćanje i brisanje favorita se odvija kroz vlastiti API, a podatci se pohranjuju u memoriji servera tijekom trajanja sesije. To znači da favoriti nisu trajno spremljeni, odnosno brišu se nakon restart-a, ali planirana je nadogradnja koja će omogućiti trajnu pohranu.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pregled funkcionalnosti
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Početna stranica** (/app/page.js) prikazuje listu od 12 TV serija sa slikama, žanrovima kojima pripadaju i prosječnim ocjenama. Izgled kartice za pojedinačnu seriju je definiran u komponenti ShowPreview.js koja se nalazi unutar mape components. Serije su sortirane prema datumu premijere (one s novijim datumom premijere dolaze prve). Dodana je mogućnost učitavanja više serija (točnije još po 12) klikom na gumb *Učitaj još*. Stranica također ima:
+  
+  - Mogućnost pretraživanja serija po nazivu.
+  - Mogućnost filtriranja serija po žanrovima korištenjem checkbox filtera.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Dinamičke rute**
+  
+  - /shows/[id] - detalji pojedinačne serije
+  - /shows/[id]/episodes - prikaz svih epizoda odabrane serije
+  - /shows/[id]/episodes/[episodeId] - prikaz detalja odabrane epizode
+  - /shows/[id]/cast - prikaz glumačke postave odabrane serije
+  - /shows/[id]/cast/[personId] - prikaz pojedinosti o odabranom glumcu
+  
+- **Favoriti** - koristim lokalnu API rutu (/api/favorites) kreiranu unutar moje aplikacije koja omogućuje dodavanje, dohvaćanje i brisanje favorita tijekom trajanja sesije. Stranica /app/favorites/page.js prikazuje sve spremljene favorite s mogućnošću njihova uklanjanja. Na stranici sa prikazom detalja odabrane serije imam dodanu *FavoriteButton* komponentu za dodavanje serije u favorite. Tu sam koristila i useTransition – hook koji nam služi kako bi izbjegli blokiranje sučelja dok čekamo odgovor na POST zahtjev.
 
-## Learn More
+- **Podrška za 404 stranicu** - koristim kada tražena serija, epizoda ili glumac ne postoje. Kada pozovem notFound() iz modula next/navigation, automatski se preusmjerava korisnika na moju prilagođenu 404 stranicu - /app/not-found.js.
 
-To learn more about Next.js, take a look at the following resources:
+- **Stranica za učitavanje** - imam globalnu /app/loading.js komponentu koja omogućuje prikaz informacija o učitavanju.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Deploy** - deployano u produkcijsko okruženje Vercel.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Lokalno pokretanje aplikacije
 
-## Deploy on Vercel
+- **Kloniraj repozitorij** - git clone https://github.com/nglavota/Projekt-serije
+- **Instaliraj potrebne pakete** - npm install
+- **Pokreni aplikaciju** - npm run dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Build & deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Pokretanje next build-a** - npm run build
+- **Lokalno testiranje aplikacije** - npm start
+- **Link na Vercel** - https://projekt-serije.vercel.app/
+ 
+## Planirane nadogradnje
+Favoriti mi se trenutno pohranjuju samo u memoriji servera, što znači da se brišu nakon restart-a aplikacije. Planiram dodati podršku za trajnu pohranu, koristeći localStorage ili bazu. Također, plan mi je omogućiti korisniku dodavanje epizoda i glumaca u favorite.
