@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation';
 import FavoriteButton from '@/app/components/FavoriteButton';
 
 // Generira SEO metapodatke za seriju (naslov, opis, slika)
-// Ovdje ne koristimo `cache: 'no-store'` jer se podaci o serijama rijetko mijenjaju, pa su sigurni za cache
+// Ovdje ne koristimo cache: 'no-store' jer se podaci o serijama rijetko mijenjaju, pa su sigurni za cache
 export async function generateMetadata({ params }) {
   const { id } = await params;
 
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }) {
 async function fetchShowDetails(id) {
   const response = await fetch(`https://api.tvmaze.com/shows/${id}`);
   if (!response.ok) {
-    notFound(); // Funkcija iz Next.js navigacije koja baca 404
+    notFound(); 
   }
   const show = await response.json();
   return show;

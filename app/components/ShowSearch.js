@@ -1,5 +1,8 @@
 'use client';
 
+// Ova komponenta prikazuje tekstualno polje za pretraživanje serija, a korisnički unos se prosljeđuje 
+// roditeljskoj komponenti putem onQueryChange callback funkcije kako bi se ažuriralo stanje pretrage.
+
 export default function ShowSearch({ query, onQueryChange }) {
   return (
     <div className="mb-6">

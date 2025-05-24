@@ -1,4 +1,4 @@
-// Ova komponenta se koristi za prikaz jedne TV serije u obliku kartice koja će biti na početnoj stranici app/page.js
+// Ova komponenta se koristi za prikaz jedne TV serije u obliku kartice koja će biti na početnoj stranici /app/page.js
 
 import Link from 'next/link';
 import Image from 'next/image';

@@ -9,7 +9,7 @@ import { notFound } from 'next/navigation';
 async function fetchEpisodes(showId) {
   const response = await fetch(`https://api.tvmaze.com/shows/${showId}/episodes`);
 
-  if (response.status === 404) notFound(); // Ako dani show ID ne postoji - prikazuje se not-found.js
+  if (response.status === 404) notFound(); // Ako dani show ID ne postoji - preusmjeravanje na moju not-found.js
   if (!response.ok) throw new Error('Greška pri dohvaćanju epizoda!');
 
   const data = await response.json();
