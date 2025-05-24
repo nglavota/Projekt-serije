@@ -18,6 +18,7 @@ Aplikacija korisnicima omogućuje i upravljanje listom omiljenih serija (favorit
   - /shows/[id] - detalji pojedinačne serije
   - /shows/[id]/episodes - prikaz svih epizoda odabrane serije
   - /shows/[id]/episodes/[episodeId] - prikaz detalja odabrane epizode
+  - /shows/[id]/crew - prikaz produkcijske ekipe odabrane serije
   - /shows/[id]/cast - prikaz glumačke postave odabrane serije
   - /shows/[id]/cast/[personId] - prikaz pojedinosti o odabranom glumcu
   
