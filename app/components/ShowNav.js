@@ -10,6 +10,7 @@ export default function ShowNav({ id }) {
     { label: "🏠 Početna", href: "/" },
     { label: "📺 Epizode", href: `/shows/${id}/episodes` },
     { label: "🎭 Glumci", href: `/shows/${id}/cast` },
+    { label: "🎥 Produkcijska ekipa", href: `/shows/${id}/crew` },
     { label: "⭐ Favoriti", href: "/favorites" },
   ];
 
