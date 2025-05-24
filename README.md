@@ -21,7 +21,7 @@ Aplikacija korisnicima omogućuje i upravljanje listom omiljenih serija (favorit
   - /shows/[id]/cast - prikaz glumačke postave odabrane serije
   - /shows/[id]/cast/[personId] - prikaz pojedinosti o odabranom glumcu
   
-- **Favoriti** - koristim lokalnu API rutu (/api/favorites) kreiranu unutar moje aplikacije koja omogućuje dodavanje, dohvaćanje i brisanje favorita tijekom trajanja sesije. Stranica /app/favorites/page.js prikazuje sve spremljene favorite s mogućnošću njihova uklanjanja. Na stranici sa prikazom detalja odabrane serije imam dodanu *FavoriteButton* komponentu za dodavanje serije u favorite. Tu sam koristila i useTransition – hook koji nam služi kako bi izbjegli blokiranje sučelja dok čekamo odgovor na POST zahtjev.
+- **Favoriti** - koristim lokalnu API rutu (/favorites) kreiranu unutar moje aplikacije koja omogućuje dodavanje, dohvaćanje i brisanje favorita tijekom trajanja sesije. Stranica /app/favorites/page.js prikazuje sve spremljene favorite s mogućnošću njihova uklanjanja. Na stranici sa prikazom detalja odabrane serije imam dodanu *FavoriteButton* komponentu za dodavanje serije u favorite. Tu sam koristila i useTransition – hook koji nam služi kako bi izbjegli blokiranje sučelja dok čekamo odgovor na POST zahtjev.
 
 - **Podrška za 404 stranicu** - koristim kada tražena serija, epizoda ili glumac ne postoje. Kada pozovem notFound() iz modula next/navigation, automatski se preusmjerava korisnika na moju prilagođenu 404 stranicu - /app/not-found.js.
 
