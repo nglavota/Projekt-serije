@@ -27,7 +27,7 @@ Aplikacija korisnicima omogućuje i upravljanje listom omiljenih serija (favorit
 
 - **Stranica za učitavanje** - imam globalnu /app/loading.js komponentu koja omogućuje prikaz informacija o učitavanju.
 
-- **Deploy** - deployano u produkcijsko okruženje Vercel.
+- **Deploy** - deploy-ano u produkcijsko okruženje Vercel.
 
 ## Lokalno pokretanje aplikacije
 
